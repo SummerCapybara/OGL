@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build and Run Current File",
+      "type": "shell",
+      // --- Default/Linux Configuration ---
+      "command": "g++ -g \"${file}\" include/glad/glad.c -Iinclude -lglfw -lGL -ldl -o \"${fileDirname}/${fileBasenameNoExtension}\" && \"${fileDirname}/${fileBasenameNoExtension}\"",
+      
+      // --- Windows Specific Override ---
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "/c",
+          "g++ -g \"${file}\" include/glad/glad.c -Iinclude -Llib -lglfw3 -lopengl32 -lgdi32 -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" ; & \"${fileDirname}\\${fileBasenameNoExtension}.exe\""
+        ]
+      },
+      
+      // --- Common Settings ---
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "detail": "Compile and run the currently opened file with OpenGL"
+    }
+  ]
+}
