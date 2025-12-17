@@ -5,8 +5,9 @@
       "label": "Build and Run Current File",
       "type": "shell",
       // --- Default/Linux Configuration ---
-      "command": "g++ -g \"${file}\" include/glad/glad.c -Iinclude -lglfw -lGL -ldl -o \"${fileDirname}/${fileBasenameNoExtension}\" && \"${fileDirname}/${fileBasenameNoExtension}\"",
-      
+      "command": "g++ -g ${file} include/glad/glad.c -Iinclude -lglfw -lGL -ldl -o ${fileDirname}/${fileBasenameNoExtension} && ${fileDirname}/${fileBasenameNoExtension}",
+
+
       // --- Windows Specific Override ---
       "windows": {
         "command": "powershell",
