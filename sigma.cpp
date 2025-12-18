@@ -1,7 +1,23 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
 
+char* FileToChrP(std::string FileName) {
+    std::ifstream file(FileName, std::ios::binary);
+    if (!file.is_open()) std::cerr << "ur file is cooked twin | FileToChrP\n";
+
+    file.seekg(0, std::ios::end);
+    size_t size = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    char* buffer = new char[size + 1];
+
+    file.read(buffer, size);
+    buffer[size] = '\0';
+
+    return buffer;
+}
 
 struct Engine {
     GLFWwindow* window;
@@ -54,12 +70,6 @@ struct Engine {
             std::cerr << "no engine? CursorPosCallback.";
             glfwTerminate();
             exit(EXIT_FAILURE);
-        }
-
-        if (xpos >= 400 && xpos <= 600 && ypos >= 300 && ypos <= 400) {
-            if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-                std::cout << "button pressed!\n";
-            }
         }
     }
 
