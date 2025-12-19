@@ -164,7 +164,6 @@ struct Shader {
 
 };
 
-
 int main() {
     Engine engine;
     Shader shader;
