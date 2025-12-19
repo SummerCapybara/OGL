@@ -3,12 +3,14 @@
 #include <iostream>
 #include <fstream>
 
-char* FileToChrP(std::string FileName) {
-    std::ifstream file(FileName, std::ios::binary);
-    if (!file.is_open()) std::cerr << "ur file is cooked twin | FileToChrP\n";
+char* FileToChrP(const std::string& FileName) {
+    std::ifstream file(FileName, std::ios::binary | std::ios::ate);
+    if (!file.is_open()) {
+        throw std::runtime_error("Your file is cooked twin | FileToChrP");
+    }
 
-    file.seekg(0, std::ios::end);
-    size_t size = file.tellg();
+    std::streamsize size = file.tellg();
+    if (size < 0) throw std::runtime_error("Ur file is cooked twin | FileToChrP");
     file.seekg(0, std::ios::beg);
 
     char* buffer = new char[size + 1];
@@ -116,6 +118,8 @@ struct Engine {
 };
 
 
+
+
 int main() {
     Engine engine;
     while (!glfwWindowShouldClose(engine.window)) {
@@ -127,4 +131,4 @@ int main() {
         glfwPollEvents();
     }
 
-}
+} 
