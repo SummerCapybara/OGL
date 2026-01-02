@@ -3,8 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-
-
 struct Engine {
     GLFWwindow* window;
     int WindowWidth = 800;
@@ -105,22 +103,15 @@ struct Shader {
     int success;
     char InfoLog[512];
 
-    char* FileToChrP(const std::string& FileName) {
-        std::ifstream file(FileName, std::ios::binary | std::ios::ate);
+    std::string FileToStr(const std::string& FileName) {
+        std::ifstream file(FileName);
         if (!file.is_open()) {
-            throw std::runtime_error("Your file is cooked twin | FileToChrP\n");
-        }
+            throw std::runtime_error("Your file is cooked twin | FileToStr\n");
+        };
 
-        std::streamsize size = file.tellg();
-        if (size < 0) throw std::runtime_error("Ur file is cooked twin | FileToChrP\n");
-        file.seekg(0, std::ios::beg);
-
-        char* buffer = new char[size + 1];
-
-        file.read(buffer, size);
-        buffer[size] = '\0';
-
-        return buffer;
+        return std::string(
+        std::istreambuf_iterator<char>(file),
+        std::istreambuf_iterator<char>());
     };
 
     GLuint CompileShader(const char* ShaderSource, GLenum type) {
@@ -167,8 +158,8 @@ struct Shader {
 int main() {
     Engine engine;
     Shader shader;
-    GLuint vertShader = shader.CompileShader(shader.FileToChrP("shaders/vert.vert"), GL_VERTEX_SHADER);
-    GLuint fragShader = shader.CompileShader(shader.FileToChrP("shaders/frag.frag"), GL_FRAGMENT_SHADER);
+    GLuint vertShader = shader.CompileShader(shader.FileToStr("shaders/vert.vert").c_str(), GL_VERTEX_SHADER);
+    GLuint fragShader = shader.CompileShader(shader.FileToStr("shaders/frag.frag").c_str(), GL_FRAGMENT_SHADER);
 
     GLuint ShaderProgram = shader.initializeShaderProgram({vertShader, fragShader}, true);
 
