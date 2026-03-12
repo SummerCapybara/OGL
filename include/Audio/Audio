@@ -1,0 +1,28 @@
+#pragma once
+#include <Audio/AudioEngine.hpp>
+#include <Audio/AudioParser.hpp>
+
+class Audio {
+	private:
+		inline static AudioParser Parser;
+		inline static AudioEngine Engine;
+		std::string FileName;
+	public:
+		Sound Sound;
+		Audio(const std::string& FileName): FileName(FileName) {
+			Sound = Engine.CreateSoundObject(Parser.ParseAudioFile(FileName), Parser.wfx);
+		};
+
+		void Play() {
+			Sound.SourceVoicePointer->Stop();
+			Sound.SourceVoicePointer->FlushSourceBuffers();
+			Sound.SourceVoicePointer->SubmitSourceBuffer(&Sound.XAudioBuffer);
+			Sound.SourceVoicePointer->Start();
+		}
+		void Volume(double Volume = 1) {
+			Sound.SourceVoicePointer->SetVolume(Volume, XAUDIO2_COMMIT_NOW);
+		}
+		void Pitch(double PitchMultiplier = 1) {
+			Sound.SourceVoicePointer->SetFrequencyRatio(PitchMultiplier);
+		}
+};

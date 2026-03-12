@@ -62,7 +62,7 @@ enum Keys : Key {
 	GraveAccent = GLFW_KEY_GRAVE_ACCENT,
 	World1 = GLFW_KEY_WORLD_1,
 	World2 = GLFW_KEY_WORLD_2,
-	Escape = GLFW_KEY_ESCAPE,
+	KeyEscape = GLFW_KEY_ESCAPE,
 	Enter = GLFW_KEY_ENTER,
 	Tab = GLFW_KEY_TAB,
 	Backspace = GLFW_KEY_BACKSPACE,

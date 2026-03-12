@@ -9,7 +9,7 @@
                 "command": "powershell",
                 "args": [
                     "/c",
-                    "g++ -g \"${file}\" include/glad/glad.c -Iinclude -Llib -lglfw3 -lopengl32 -lgdi32 -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" ; & \"${fileDirname}\\${fileBasenameNoExtension}.exe\""
+                    "g++ -g \"${file}\" include/glad/glad.c -Iinclude -Llib -lole32 -lxaudio2_9 -lglfw3 -lopengl32 -lgdi32 -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" ; & \"${fileDirname}\\${fileBasenameNoExtension}.exe\""
                 ]
             },
             "group": {

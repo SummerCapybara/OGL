@@ -1,4 +1,6 @@
+#define WIN32_LEAN_AND_MEAN
 #include <Engine.hpp>
+#include <Audio/Audio>
 #include <GLheaders.hpp>
 #include <Shaders/Shaders.hpp>
 #include <iostream>
@@ -56,7 +58,6 @@ int main() {
 	glm::mat4 projection =
 	    glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, -1.0f, 1.0f);
 	float accum = 50.0f;
-
 	Input &input = engine.GetInput();
 	static int vertic = 3;
 	input.AddKeybind(Keys::Equal, "key", KeyStates::Press, [&]() {
@@ -66,6 +67,11 @@ int main() {
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2),
 		             vertices.data(), GL_STATIC_DRAW);
 	});
+	Audio sfx("include/Audio/Sounds/log_sweep.wav");
+	input.AddKeybind(P, "playsound", Press, [&](){
+		sfx.Play();
+	});
+
 	while (!glfwWindowShouldClose(engine.GetWindow())) {
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
